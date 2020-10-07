@@ -7,9 +7,9 @@
 </head>
 <body>
   <?php include VIEW_PATH . 'templates/header_logined.php'; ?>
-  <h1>購入履歴</h1>
-  <div class="container">
 
+  <div class="container">
+    <h1>Purchaed Items</h1>
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
     <?php if(count($orders) > 0){ ?>

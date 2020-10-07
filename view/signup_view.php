@@ -8,7 +8,7 @@
 <body>
   <?php include VIEW_PATH . 'templates/header.php'; ?>
   <div class="container">
-    <h1>ユーザー登録</h1>
+    <h1>Sign Up</h1>
 
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
