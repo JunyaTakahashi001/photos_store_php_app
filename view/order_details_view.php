@@ -7,9 +7,8 @@
 </head>
 <body>
   <?php include VIEW_PATH . 'templates/header_logined.php'; ?>
-  <h1>購入明細</h1>
   <div class="container">
-
+    <h1>Purchaed Item Details</h1>
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
       <!-- 注文履歴概要 -->
       <table class="table table-bordered">

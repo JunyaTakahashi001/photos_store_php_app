@@ -11,6 +11,16 @@ require_once MODEL_PATH . 'item.php';
 // ログインチェックを行うため、セッションを開始する
 session_start();
 
+// ログイン用関数を利用
+if(is_logined() === false){
+    // ログインしていない場合のヘッダー
+    $header = 'templates/header.php';
+}else{
+    // ログインしている場合のヘッダー
+    $header = 'templates/header_logined.php';
+}
+
+
 // PDOを取得
 $db = get_db_connect();
 
@@ -19,6 +29,9 @@ $user = get_login_user($db);
 
 // 商品一覧用の商品データを取得
 $items = get_open_items($db);
+
+// 購入数上位3位まで取得
+$rankings = get_ranking($db);
 
 // ビューの読み込み
 include_once VIEW_PATH . 'index_view.php';
