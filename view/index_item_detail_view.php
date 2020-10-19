@@ -42,7 +42,6 @@
         </div>
       </div>
     </div>
-<?php print $item_id;?>
   </div>
 </body>
 </html>

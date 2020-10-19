@@ -18,12 +18,10 @@
       <?php foreach($items as $item){ ?>
         <div class="col-4 item">
           <div class="card h-100 text-center">
-            <div class="card-header">
-              <?php print h($item['name']); ?>
-            </div>
             <figure class="card-body">
               <img class="card-img" src="<?php print h(IMAGE_PATH . $item['image']); ?>">
               <figcaption>
+                <h5 class="font-weight-bold"><?php print h($item['name']); ?></h5>
                 <?php print h(number_format($item['price'])); ?> JPY
                   <?php if($item['stock'] > 0){ ?>
                   <div class="tocart_btn">
@@ -51,7 +49,6 @@
           </div>
         </div>
       <?php } ?>
-      </div>
     </div>
   </div>
   <!-- footer -->

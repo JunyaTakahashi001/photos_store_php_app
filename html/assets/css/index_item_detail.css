@@ -8,5 +8,9 @@
 
 p.w_break {
     word-wrap: break-word;
-    width: 70%;
+    width: 100%;
+}
+
+.tocart_btn{
+  margin-top: 25px;
 }

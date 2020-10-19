@@ -18,6 +18,7 @@
         </li>
       </ul>
     </div>
+    <p class="mt-0 mb-0 mr-3">ようこそ、gestさん</p> 
   </nav>
   <h1 class="logo">Photos Store...</h1>
 </header>

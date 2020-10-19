@@ -230,6 +230,28 @@ function get_ranking($db, $RANKING_LIMIT){
   return fetch_all_query($db, $sql);
 }
 
+
+// データベースから検索
+function get_search_item($db, $search_word){
+  $params = array('search_word'=>$search_word);
+  $sql = '
+  SELECT
+    items.item_id,
+    name,
+    stock,
+    price,
+    image,
+    status
+  FROM
+    items
+  WHERE
+    name OR comment LIKE :search_word;
+  ';
+
+  return fetch_all_query($db, $sql, $params);
+}
+
+
 // 非DB
 
 // 商品の公開ステータスが「公開」の場合trueを返す
