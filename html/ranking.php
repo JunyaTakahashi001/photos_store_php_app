@@ -27,8 +27,8 @@ $db = get_db_connect();
 // PDOを利用してログインユーザのデータを取得
 $user = get_login_user($db);
 
-// 商品一覧用の商品データを取得
-$items = get_open_items($db);
+// 購入数ランキングを取得
+$rankings = get_ranking($db, $RANKING_LIMIT);
 
 // ビューの読み込み
-include_once VIEW_PATH . 'index_view.php';
+include_once VIEW_PATH . 'ranking_view.php';

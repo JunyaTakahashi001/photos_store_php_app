@@ -3,35 +3,34 @@
 <head>
   <?php include VIEW_PATH . 'templates/head.php'; ?>
   
-  <title>商品一覧</title>
-  <link rel="stylesheet" href="<?php print(STYLESHEET_PATH . 'index.css'); ?>">
+  <title>購入数ランキング</title>
+  <link rel="stylesheet" href="<?php print(STYLESHEET_PATH . 'ranking.css'); ?>">
 </head>
 <body>
   <?php include VIEW_PATH . $header; ?>
-  
 
   <div class="container">
-    <h2>Favorite Items...</h2>
-    <?php include VIEW_PATH . 'templates/messages.php'; ?>
-
+    <!-- ランキング -->
+    <h2>Ranking...</h2>
     <div class="card-deck">
-      <?php foreach($items as $item){ ?>
+      <?php $counter = 1; ?>
+      <?php foreach($rankings as $ranking){ ?>
         <div class="col-4 item">
-          <div class="card h-100 text-center">
+          <div class="card w-auto text-center">
             <div class="card-header">
-              <?php print h($item['name']); ?>
+              <?php print $counter.'位 . '.h($ranking['name']); ?>
             </div>
             <figure class="card-body">
-              <img class="card-img" src="<?php print h(IMAGE_PATH . $item['image']); ?>">
+              <img class="card-img" src="<?php print h(IMAGE_PATH . $ranking['image']); ?>">
               <figcaption>
-                <?php print h(number_format($item['price'])); ?> JPY
-                <?php if($item['stock'] > 0){ ?>
+                <?php print h(number_format($ranking['price'])); ?> JPY
+                <?php if($ranking['stock'] > 0){ ?>
                   <div class="tocart_btn">
                     <form action="index_add_cart.php" method="post">
                       <!-- トークン埋め込み -->
                       <input type="hidden" name="token" value="<?=$token?>">
                       <input type="submit" value="to CART" class="btn btn-light btn-block">
-                      <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
+                      <input type="hidden" name="item_id" value="<?php print($ranking['item_id']); ?>">
                     </form>
                   </div>
                   <div class="iteminfo_btn">
@@ -40,21 +39,18 @@
                       <!-- トークン埋め込み -->
                       <input type="hidden" name="token" value="<?=$token?>">
                       <input type="submit" value="Item Information" class="btn btn-light btn-block">
-                      <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
+                      <input type="hidden" name="item_id" value="<?php print($ranking['item_id']); ?>">
                     </form>
                   </div>
                 <?php } else { ?>
                   <p class="text-danger">SOULD OUT.</p>
                 <?php } ?>
-              </figcaption>
+              </figcaption>            
             </figure>
           </div>
         </div>
+      <?php $counter++; ?>
       <?php } ?>
-      </div>
     </div>
-  </div>
-  <!-- footer -->
-  <?php include VIEW_PATH . 'templates/footer.php'; ?>
 </body>
 </html>

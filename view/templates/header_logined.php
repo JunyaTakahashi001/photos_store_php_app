@@ -1,12 +1,15 @@
 <!-- ログイン済みheader -->
 <header>
-  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
     <a class="navbar-brand" href="<?php print(HOME_URL);?>"><button type="button" class="btn btn-dark  " data_but="btn-xs"><i class='fa '></i> Market</button></a>
     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#headerNav" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="ナビゲーションの切替">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="headerNav">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="<?php print(RANKING_URL);?>"><button type="button" class="btn btn-light  " data_but="btn-xs"><i class='fa '></i> Ranking</button></a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php print(CART_URL);?>"><button type="button" class="btn btn-light  " data_but="btn-xs"><i class='fa '></i> Cart</button></a>
         </li>
@@ -18,11 +21,12 @@
         </li>
         <?php if(is_admin($user)){ ?>
           <li class="nav-item">
-            <a class="nav-link" href="<?php print(ADMIN_URL);?>">管理</a>
+            <a class="nav-link" href="<?php print(ADMIN_URL);?>"><button type="button" class="btn btn-light  " data_but="btn-xs"><i class='fa '></i> 管理</button></a>
           </li>
         <?php } ?>
       </ul>
     </div>
+    <p>ようこそ、<?php print($user['name']); ?>さん。</p>  
   </nav>
-  <p>ようこそ、<?php print($user['name']); ?>さん。</p>
+  <h1 class="logo">Photos Store...</h1>
 </header>
