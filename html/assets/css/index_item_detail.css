@@ -1,0 +1,12 @@
+.logo{
+    color: black;
+    font-size: 9vw;
+    font-family: "arial black";
+    text-align: center;
+    margin-top: 80px;
+  }
+
+p.w_break {
+    word-wrap: break-word;
+    width: 70%;
+}

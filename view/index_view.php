@@ -25,7 +25,7 @@
               <img class="card-img" src="<?php print h(IMAGE_PATH . $item['image']); ?>">
               <figcaption>
                 <?php print h(number_format($item['price'])); ?> JPY
-                <?php if($item['stock'] > 0){ ?>
+                  <?php if($item['stock'] > 0){ ?>
                   <div class="tocart_btn">
                     <form action="index_add_cart.php" method="post">
                       <!-- トークン埋め込み -->
