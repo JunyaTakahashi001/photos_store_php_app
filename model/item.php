@@ -17,7 +17,8 @@ function get_item($db, $item_id){
       stock,
       price,
       image,
-      status
+      status,
+      comment
     FROM
       items
     WHERE
@@ -208,6 +209,7 @@ function delete_item($db, $item_id){
 function get_ranking($db, $RANKING_LIMIT){
   $sql = '
   SELECT
+    items.item_id,
     name,
     stock,
     price,
