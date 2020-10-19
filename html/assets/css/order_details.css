@@ -5,3 +5,11 @@
 input[type=number]{
   width: 4em;
 }
+
+.logo{
+  color: black;
+  font-size: 9vw;
+  font-family: "arial black";
+  text-align: center;
+  margin-top: 80px;
+}
