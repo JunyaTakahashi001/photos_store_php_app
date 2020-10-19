@@ -39,6 +39,11 @@ if($search_word === ''){
 
     // dbを検索
     $search_items = get_search_item($db, $search_word);
+
+    // 該当なしチェック
+    if(empty($search_items)){
+        set_error('検索結果：該当する商品はありません。');
+    } 
 }
 
 
