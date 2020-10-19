@@ -27,8 +27,21 @@ $db = get_db_connect();
 // PDOを利用してログインユーザのデータを取得
 $user = get_login_user($db);
 
-// 商品一覧用の商品データを取得
-$items = get_open_items($db);
+// POSTされた検索ワードを取得
+$search_word = get_post('search_word');
+
+// 空白チェック
+if($search_word === ''){
+    set_error('検索する文字を入力してください。');
+}else{
+    // あいまい検索に変更
+    $search_word = '%' . $search_word . '%';
+
+    // dbを検索
+    $search_items = get_search_item($db, $search_word);
+}
+
+
 
 // ビューの読み込み
-include_once VIEW_PATH . 'index_view.php';
+include_once VIEW_PATH . 'index_search_view.php';

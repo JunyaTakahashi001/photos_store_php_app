@@ -17,7 +17,8 @@ function get_item($db, $item_id){
       stock,
       price,
       image,
-      status
+      status,
+      comment
     FROM
       items
     WHERE
@@ -205,9 +206,10 @@ function delete_item($db, $item_id){
 }
 
 // 購入数の多いitemを取得
-function get_ranking($db){
+function get_ranking($db, $RANKING_LIMIT){
   $sql = '
   SELECT
+    items.item_id,
     name,
     stock,
     price,
@@ -222,11 +224,33 @@ function get_ranking($db){
     items.item_id
   ORDER BY
     total_quantity DESC
-  LIMIT 3;
+  LIMIT 6;
 ';
 
   return fetch_all_query($db, $sql);
 }
+
+
+// データベースから検索
+function get_search_item($db, $search_word){
+  $params = array('search_word'=>$search_word);
+  $sql = '
+  SELECT
+    items.item_id,
+    name,
+    stock,
+    price,
+    image,
+    status
+  FROM
+    items
+  WHERE
+    name OR comment LIKE :search_word;
+  ';
+
+  return fetch_all_query($db, $sql, $params);
+}
+
 
 // 非DB
 

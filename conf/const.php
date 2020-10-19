@@ -31,7 +31,7 @@ define('CART_URL', '/cart.php');
 define('FINISH_URL', '/finish.php');
 define('ADMIN_URL', '/admin.php');
 define('ORDER_URL', '/order.php');
-
+define('RANKING_URL', '/ranking.php');
 
 // 正規表現の設定
 // 英数字
@@ -68,3 +68,6 @@ define('PERMITTED_IMAGE_TYPES', array(
   IMAGETYPE_JPEG => 'jpg',
   IMAGETYPE_PNG => 'png',
 ));
+
+// 購入数ランキング取得数設定
+define('RANKING_LIMIT', 6);
