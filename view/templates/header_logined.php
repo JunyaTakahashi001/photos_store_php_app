@@ -26,7 +26,19 @@
         <?php } ?>
       </ul>
     </div>
-    <p>ようこそ、<?php print($user['name']); ?>さん。</p>  
+    <p class="mt-0 mb-0 mr-3">ようこそ、<?php print($user['name']); ?>さん</p> 
+    <!--検索フォーム-->
+    <div class="col-xs-1">
+      <form action="index_search.php" method="post" class="m-0">
+        <div class="input-group">
+          <input name="search_word" type="text" class="form-control" placeholder="Search">
+          <span class="input-group-btn">
+            <input type="submit" class="btn btn-dark" value="Search">
+          </span>
+        </div>
+      </form>
+    </div>
+
   </nav>
   <h1 class="logo">Photos Store...</h1>
 </header>

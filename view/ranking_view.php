@@ -17,12 +17,10 @@
       <?php foreach($rankings as $ranking){ ?>
         <div class="col-4 item">
           <div class="card w-auto text-center">
-            <div class="card-header">
-              <?php print $counter.'位 . '.h($ranking['name']); ?>
-            </div>
             <figure class="card-body">
               <img class="card-img" src="<?php print h(IMAGE_PATH . $ranking['image']); ?>">
               <figcaption>
+                <h5 class="font-weight-bold"><?php print $counter.'位 . '.h($ranking['name']); ?></h5>
                 <?php print h(number_format($ranking['price'])); ?> JPY
                 <?php if($ranking['stock'] > 0){ ?>
                   <div class="tocart_btn">
