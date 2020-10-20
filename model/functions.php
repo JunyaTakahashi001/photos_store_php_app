@@ -132,6 +132,13 @@ function is_valid_length($string, $minimum_length, $maximum_length = PHP_INT_MAX
   return ($minimum_length <= $length) && ($length <= $maximum_length);
 }
 
+// 文字列の最大lengthを検査
+function is_valid_comment_length($string, $maximum_length = PHP_INT_MAX){
+  // 文字列の長さを取得
+  $length = mb_strlen($string);
+  return ($length <= $maximum_length);
+}
+
 // 英数字検査の関数を呼び出し
 function is_alphanumeric($string){
   return is_valid_format($string, REGEXP_ALPHANUMERIC);

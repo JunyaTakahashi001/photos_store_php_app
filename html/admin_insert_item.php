@@ -34,12 +34,13 @@ $name = get_post('name');
 $price = get_post('price');
 $status = get_post('status');
 $stock = get_post('stock');
+$comment = get_post('comment');
 
 // POSTされたファイルデータの取得
 $image = get_file('image');
 
 // 関数を利用して商品登録を行う
-if(regist_item($db, $name, $price, $stock, $status, $image)){
+if(regist_item($db, $name, $price, $stock, $status, $image, $comment)){
   set_message('商品を登録しました。');
 }else {
   set_error('商品の登録に失敗しました。');
