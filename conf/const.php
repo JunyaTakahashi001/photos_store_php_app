@@ -52,6 +52,7 @@ define('USER_TYPE_NORMAL', 2);
 // 商品設定
 define('ITEM_NAME_LENGTH_MIN', 1);
 define('ITEM_NAME_LENGTH_MAX', 100);
+define('ITEM_COMMENT_LENGTH_MAX', 1000);
 
 // 商品公開ステータス設定
 define('ITEM_STATUS_OPEN', 1);
