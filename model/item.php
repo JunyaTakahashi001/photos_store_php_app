@@ -208,6 +208,7 @@ function delete_item($db, $item_id){
 
 // 購入数の多いitemを取得
 function get_ranking($db, $RANKING_LIMIT){
+  $params = array('limit'=>$RANKING_LIMIT);
   $sql = '
   SELECT
     items.item_id,
@@ -225,10 +226,10 @@ function get_ranking($db, $RANKING_LIMIT){
     items.item_id
   ORDER BY
     total_quantity DESC
-  LIMIT 6;
+  LIMIT :limit;
 ';
 
-  return fetch_all_query($db, $sql);
+  return fetch_all_query($db, $sql, $params);
 }
 
 
