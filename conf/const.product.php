@@ -15,10 +15,10 @@ define('IMAGE_DIR', $_SERVER['DOCUMENT_ROOT'] . '/assets/images/' );
 
 
 // データベース設定
-define('DB_HOST', 'mysql');
-define('DB_NAME', 'sample');
-define('DB_USER', 'testuser');
-define('DB_PASS', 'password');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'photos_store');
+define('DB_USER', 'root');
+define('DB_PASS', 'J8vMyica0');
 define('DB_CHARSET', 'utf8');
 
 
@@ -71,4 +71,4 @@ define('PERMITTED_IMAGE_TYPES', array(
 ));
 
 // 購入数ランキング取得数設定
-define('RANKING_LIMIT', 3);
+define('RANKING_LIMIT', 6);
