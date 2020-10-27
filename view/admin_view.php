@@ -19,12 +19,16 @@
       method="post" 
       action="admin_insert_item.php" 
       enctype="multipart/form-data"
-      class="add_item_form col-md-6">
+      class="add_item_form col-md-12">
       <!-- トークン埋め込み -->
       <input type="hidden" name="token" value="<?=$token?>">
       <div class="form-group">
         <label for="name">名前: </label>
         <input class="form-control" type="text" name="name" id="name">
+      </div>
+      <div class="form-group">
+        <label for="name" class="inputlg">商品説明: </label>
+        <textarea class="form-control" name="comment" id="comment"></textarea>
       </div>
       <div class="form-group">
         <label for="price">価格: </label>

@@ -28,7 +28,7 @@ $db = get_db_connect();
 $user = get_login_user($db);
 
 // 購入数ランキングを取得
-$rankings = get_ranking($db, $RANKING_LIMIT);
+$rankings = get_ranking($db, RANKING_LIMIT);
 
 // ビューの読み込み
 include_once VIEW_PATH . 'ranking_view.php';

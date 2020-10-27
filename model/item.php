@@ -61,21 +61,21 @@ function get_open_items($db){
 }
 
 // 商品登録の準備
-function regist_item($db, $name, $price, $stock, $status, $image){
+function regist_item($db, $name, $price, $stock, $status, $image, $comment){
   $filename = get_upload_filename($image);
   // バリデータを実施する
-  if(validate_item($name, $price, $stock, $filename, $status) === false){
+  if(validate_item($name, $price, $stock, $filename, $status, $comment) === false){
     return false;
   }
-  return regist_item_transaction($db, $name, $price, $stock, $status, $image, $filename);
+  return regist_item_transaction($db, $name, $price, $stock, $status, $image, $filename, $comment);
 }
 
 // 商品登録のトランサクション
-function regist_item_transaction($db, $name, $price, $stock, $status, $image, $filename){
+function regist_item_transaction($db, $name, $price, $stock, $status, $image, $filename, $comment){
   // トランザクション開始
   $db->beginTransaction();
   // itemテーブルインサート処理とimage保存処理を呼び出し
-  if(insert_item($db, $name, $price, $stock, $filename, $status) 
+  if(insert_item($db, $name, $price, $stock, $filename, $status, $comment) 
     && save_image($image, $filename)){
     // コミット
     $db->commit();
@@ -88,10 +88,10 @@ function regist_item_transaction($db, $name, $price, $stock, $status, $image, $f
 }
 
 // itemテーブル登録処理
-function insert_item($db, $name, $price, $stock, $filename, $status){
+function insert_item($db, $name, $price, $stock, $filename, $status, $comment){
   $status_value = PERMITTED_ITEM_STATUSES[$status];
   // execute時に使用する変数を格納
-  $params = array('name'=>$name, 'price'=>$price, 'stock'=>$stock, 'filename'=>$filename, 'status_value'=>$status_value);
+  $params = array('name'=>$name, 'price'=>$price, 'stock'=>$stock, 'filename'=>$filename, 'status_value'=>$status_value, 'comment'=>$comment);
   $sql = "
     INSERT INTO
       items(
@@ -99,9 +99,10 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
         price,
         stock,
         image,
-        status
+        status,
+        comment
       )
-    VALUES(:name, :price, :stock, :filename, :status_value);
+    VALUES(:name, :price, :stock, :filename, :status_value, :comment);
   ";
 
   return execute_query($db, $sql, $params);
@@ -207,6 +208,7 @@ function delete_item($db, $item_id){
 
 // 購入数の多いitemを取得
 function get_ranking($db, $RANKING_LIMIT){
+  $params = array('limit'=>$RANKING_LIMIT);
   $sql = '
   SELECT
     items.item_id,
@@ -224,10 +226,10 @@ function get_ranking($db, $RANKING_LIMIT){
     items.item_id
   ORDER BY
     total_quantity DESC
-  LIMIT 6;
+  LIMIT :limit;
 ';
 
-  return fetch_all_query($db, $sql);
+  return fetch_all_query($db, $sql, $params);
 }
 
 
@@ -251,6 +253,46 @@ function get_search_item($db, $search_word){
   return fetch_all_query($db, $sql, $params);
 }
 
+function get_sort_items($db, $sort, $is_open = false){
+  $sql = '
+    SELECT
+      item_id,
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+  ';
+  if($is_open === true){
+    $sql .= '
+      WHERE status = 1
+    ';
+  }
+  $sql .= '
+      ORDER BY
+    ';
+  if($sort === 'created_desc'){
+    $sql .= '
+      created DESC
+    ';
+  }elseif($sort === 'price_desc'){
+    $sql .= '
+      price DESC
+    ';
+  }elseif($sort === 'price_asc'){
+    $sql .= '
+      price ASC
+    ';
+  }
+
+  return fetch_all_query($db, $sql);
+}
+
+function get_sort_open_items($db, $sort){
+  return get_sort_items($db, $sort, true);
+}
 
 // 非DB
 
@@ -260,18 +302,20 @@ function is_open($item){
 }
 
 // 各引数に対してバリデーションを実施し、良否を返す
-function validate_item($name, $price, $stock, $filename, $status){
+function validate_item($name, $price, $stock, $filename, $status, $comment){
   $is_valid_item_name = is_valid_item_name($name);
   $is_valid_item_price = is_valid_item_price($price);
   $is_valid_item_stock = is_valid_item_stock($stock);
   $is_valid_item_filename = is_valid_item_filename($filename);
   $is_valid_item_status = is_valid_item_status($status);
+  $is_valid_item_comment = is_valid_item_comment($comment);
 
   return $is_valid_item_name
     && $is_valid_item_price
     && $is_valid_item_stock
     && $is_valid_item_filename
-    && $is_valid_item_status;
+    && $is_valid_item_status
+    && $is_valid_item_comment;
 }
 
 // バリデーション実施
@@ -313,6 +357,15 @@ function is_valid_item_filename($filename){
 function is_valid_item_status($status){
   $is_valid = true;
   if(isset(PERMITTED_ITEM_STATUSES[$status]) === false){
+    $is_valid = false;
+  }
+  return $is_valid;
+}
+// バリデーション実施
+function is_valid_item_comment($comment){
+  $is_valid = true;
+  if(is_valid_comment_length($comment, ITEM_COMMENT_LENGTH_MAX) === false){
+    set_error('商品説明は' . ITEM_COMMENT_LENGTH_MAX . '文字以内にしてください。');
     $is_valid = false;
   }
   return $is_valid;
