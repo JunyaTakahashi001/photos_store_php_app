@@ -72,3 +72,6 @@ define('PERMITTED_IMAGE_TYPES', array(
 
 // 購入数ランキング取得数設定
 define('RANKING_LIMIT', 3);
+
+// 1ページに表示するitem数を取得
+define('PAGENATION_LIMIT', 6);
