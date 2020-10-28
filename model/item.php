@@ -253,8 +253,9 @@ function get_search_item($db, $search_word){
   return fetch_all_query($db, $sql, $params);
 }
 
-// ソート順にitemを取得
-function get_sort_items($db, $sort, $is_open = false){
+// 公開中且つ、ページ数に合わせたitemを取得
+function get_sort_items($db, $sort, $is_open = false, $start = 0, $limit = PAGENATION_LIMIT){
+  $params = array('start'=>$start, 'limit'=>$limit);
   $sql = '
     SELECT
       item_id,
@@ -287,14 +288,28 @@ function get_sort_items($db, $sort, $is_open = false){
       price ASC
     ';
   }
+    $sql .= '
+      LIMIT :start, :limit
+    ';
 
-  return fetch_all_query($db, $sql);
+  return fetch_all_query($db, $sql, $params);
 }
 
-function get_sort_open_items($db, $sort){
-  return get_sort_items($db, $sort, true);
+function get_sort_open_items($db, $sort, $start = 0, $limit = PAGENATION_LIMIT){
+  return get_sort_items($db, $sort, true, $start, $limit);
 }
 
+function get_open_item_count($db) {
+  $sql = '
+    SELECT
+      count(item_id) as all_item_count
+    FROM
+      items
+    WHERE status = 1;
+    ';
+
+  return fetch_query($db, $sql);
+}
 
 // 非DB
 
