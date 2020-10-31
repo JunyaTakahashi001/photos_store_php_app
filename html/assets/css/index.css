@@ -14,3 +14,12 @@
 .iteminfo_btn{
   margin-top: 10px;
 }
+
+.page-item.active .page-link {
+  color: white;
+  background-color: grey;
+}
+
+.page-link {
+  color: black;
+}
