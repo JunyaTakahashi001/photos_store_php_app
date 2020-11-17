@@ -88,6 +88,25 @@
         <p class="text-center">全 <?php print $all_item_num; ?> 件中 <?php print $start + 1; ?> - <?php print $start + count($items); ?> 件目の商品を表示中</p>
       </nav>
     </div>
+    
+    <h2>楽天トラベルの人気ホテル一覧</h2>
+    <div class="card-deck">
+      <?php foreach($rests as $rest){ ?>
+        <div class="col-4 item">
+          <div class="card h-100 text-center">
+            <figure class="card-body">
+              <img class="card-img" src="<?php print h($rest['hotel']['hotelImageUrl']); ?>">
+              <figcaption>
+                <p class="font-weight-bold"><a href="<?php print $rest['hotel']['hotelInformationUrl'] ?>"><?php print $rest['hotel']['hotelName']; ?></a></p>
+                <p><?php print $rest['hotel']['userReview']; ?></p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      <?php } ?>
+    </div>
+
+
   </div>
   <!-- footer -->
   <?php include VIEW_PATH . 'templates/footer.php'; ?>

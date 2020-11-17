@@ -60,5 +60,10 @@ if(isset($_GET['sort'])){
     $items = get_sort_open_items($db, $sort, $start);
   }
 
+// 楽天トラベルAPI連携
+$rests = gurunavi_search_restlist_v3();
+// 配列の階層変更
+$rests = $rests[0]['Ranking']['hotels'];
+
 // ビューの読み込み
 include_once VIEW_PATH . 'index_view.php';
