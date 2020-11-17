@@ -387,3 +387,24 @@ function is_valid_item_comment($comment){
   }
   return $is_valid;
 }
+
+// 楽天トラベルAPI連携
+function gurunavi_search_restlist_v3() {
+  $ret = FALSE;
+
+  $search_url = "https://app.rakuten.co.jp/services/api/Travel/HotelRanking/20170426?"
+  . "applicationId=" . "1030424330987528104"
+  . "&format=" . "json"
+  . "&carrier=" . "0"
+  . "&genre=" . "premium";
+  // true配列で
+  $json = json_decode(file_get_contents($search_url),true);
+
+  if ($json !== FALSE) {
+    $ret = $json['Rankings'];
+    if (count($ret) <= 0) {
+    $ret = FALSE;
+    }
+  } 
+    return($ret);
+}
